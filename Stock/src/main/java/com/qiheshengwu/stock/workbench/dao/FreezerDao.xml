@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.qiheshengwu.stock.workbench.dao.FreezerDao">
+    
+    <insert id="insertFreezer">
+        insert into
+            tbl_freezer
+        values (
+            #{id},
+            #{name},
+            #{parkId}
+               )
+    </insert>
+
+    <select id="selectAll" resultType="com.qiheshengwu.stock.workbench.entity.Freezer">
+        select
+            id,
+            name,
+            parkId
+        from
+            tbl_freezer
+        order by
+            name
+    </select>
+
+</mapper>

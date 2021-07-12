@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.qiheshengwu.stock.workbench.dao.StockDao">
+
+    <insert id="insertStock">
+        insert into
+            tbl_stock
+        values
+            <if test="list != null and list.size > 0">
+                <foreach collection="list" item="stock" separator=",">
+                    (
+                    #{stock.id},
+                    #{stock.parkId},
+                    #{stock.freezerId},
+                    #{stock.pile},
+                    #{stock.dateTag},
+                    #{stock.shed},
+                    #{stock.bud},
+                    #{stock.type},
+                    #{stock.grade},
+                    #{stock.amount},
+                    #{stock.nature},
+                    #{stock.peel},
+                    #{stock.test},
+                    #{stock.dateCurrent},
+                    #{stock.accountAge},
+                    #{stock.remark}
+                    )
+                </foreach>
+            </if>
+    </insert>
+
+    <select id="selectStockList" resultType="com.qiheshengwu.stock.workbench.entity.Stock">
+        select
+            s.id,
+            p.name as parkId,
+            s.freezerId,
+            s.pile,
+            s.dateTag,
+            s.shed,
+            s.bud,
+            s.type,
+            s.grade,
+            s.amount,
+            s.nature,
+            s.peel,
+            s.test,
+            s.dateCurrent,
+            s.accountAge,
+            s.remark
+        from
+            tbl_stock s
+        left join
+            tbl_park p
+        on
+            s.parkId=p.id
+        <where>
+            <if test="parkId != null and parkId != ''">
+                s.parkId=#{parkId}
+            </if>
+            <if test="freezerId != null and freezerId != ''">
+                and s.freezerId like "%" #{freezerId} "%"
+            </if>
+            <if test="type != null and type != ''">
+                and s.type like "%" #{type} "%"
+            </if>
+            <if test="grade != null and grade != ''">
+                and s.grade=#{grade}
+            </if>
+        </where>
+        order by
+            s.dateCurrent desc
+    </select>
+
+    <select id="selectTotal" resultType="int">
+        select
+            count(*)
+        from
+            tbl_stock
+        <where>
+            <if test="parkId != null and parkId != ''">
+                parkId=#{parkId}
+            </if>
+            <if test="freezerId != null and freezerId != ''">
+                and freezerId like "%" #{freezerId} "%"
+            </if>
+            <if test="type != null and type != ''">
+                and type like "%" #{type} "%"
+            </if>
+            <if test="grade != null and grade != ''">
+                and grade=#{grade}
+            </if>
+        </where>
+    </select>
+
+</mapper>
