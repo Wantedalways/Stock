@@ -1,6 +1,7 @@
 package com.qiheshengwu.stock.workbench.dao;
 
 import com.qiheshengwu.stock.workbench.entity.Stock;
+import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
 
@@ -26,4 +27,18 @@ public interface StockDao {
      * @return 符合条件的库存总条数
      */
     int selectTotal(Stock stock);
+
+    /** 修改园区关联
+     * @param park 园区名
+     * @param parkId 园区id
+     * @return 更新记录条数
+     */
+
+    int updateSources(@Param("park") String park, @Param("parkId") String parkId);
+
+    /** 查询汇总数据
+     * @return 数据源
+     */
+    List<Stock> selectSources();
+
 }

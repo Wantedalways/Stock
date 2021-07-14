@@ -95,4 +95,13 @@
         </where>
     </select>
 
+    <select id="selectSources" resultType="com.qiheshengwu.stock.workbench.entity.Stock">
+        select * from stock_temp
+    </select>
+
+    <update id="updateSources">
+        update stock_temp set parkId=#{parkId} where parkId=#{park}
+    </update>
+
+
 </mapper>

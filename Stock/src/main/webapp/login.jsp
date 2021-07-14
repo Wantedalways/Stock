@@ -8,6 +8,7 @@
 <head>
     <base href="<%=basePath%>">
     <link href="static/jquery/bootstrap-3.4.1-dist/css/bootstrap.min.css" type="text/css" rel="stylesheet" />
+    <link rel="icon" href="static/image/logo.png">
     <script type="text/javascript" src="static/jquery/jquery-3.6.0.min.js"></script>
     <script type="text/javascript" src="static/jquery/bootstrap-3.4.1-dist/js/bootstrap.min.js"></script>
     <script type="text/javascript">
@@ -88,11 +89,11 @@
     <title>登录</title>
 </head>
 <body>
-<div style="position: absolute; top: 0px; left: 0px; width: 60%;">
+<div style="position: absolute; top: 0px; left: 0px; width: 60%; height: 850px">
     <img src="static/image/IMG_7114.JPG" style="width: 100%; height: 90%; position: relative; top: 50px;" alt="图片加载中...">
 </div>
 <div id="top" style="height: 50px; background-color: #3C3C3C; width: 100%;">
-    <div style="position: absolute; top: 5px; left: 0px; font-size: 30px; font-weight: 400; color: white; font-family: 'times new roman'">？？？&nbsp;<span style="font-size: 12px;">&copy;2021&nbsp;？？？</span></div>
+    <div style="position: absolute; top: 5px; left: 0px; font-size: 25px; font-weight: 400; color: white; font-family: 'times new roman'">Stock&nbsp;<span style="font-size: 12px;">&copy;2021&nbsp;七河生物</span></div>
 </div>
 
 <div style="position: absolute; top: 120px; right: 100px;width:450px;height:400px;border:1px solid #D5D5D5">

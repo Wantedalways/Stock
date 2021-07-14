@@ -9,12 +9,15 @@
 <head>
     <base href="<%=basePath%>">
     <link href="static/jquery/bootstrap-3.4.1-dist/css/bootstrap.min.css" type="text/css" rel="stylesheet"/>
-    <link href="static/jquery/bootstrap-datetimepicker-master/css/bootstrap-datetimepicker.min.css" type="text/css" rel="stylesheet">
-    <link href="static/jquery/jquery-editable-select-master/jquery-editable-select.css" type="text/css" rel="stylesheet">
+    <link href="static/jquery/bootstrap-datetimepicker-master/css/bootstrap-datetimepicker.min.css" type="text/css"
+          rel="stylesheet">
+    <link href="static/jquery/jquery-editable-select-master/jquery-editable-select.css" type="text/css"
+          rel="stylesheet">
 
     <script type="text/javascript" src="static/jquery/jquery-3.6.0.min.js"></script>
     <script type="text/javascript" src="static/jquery/bootstrap-3.4.1-dist/js/bootstrap.min.js"></script>
-    <script type="text/javascript" src="static/jquery/bootstrap-datetimepicker-master/js/bootstrap-datetimepicker.js"></script>
+    <script type="text/javascript"
+            src="static/jquery/bootstrap-datetimepicker-master/js/bootstrap-datetimepicker.js"></script>
     <script type="text/javascript" src="static/jquery/jquery-editable-select-master/jquery-editable-select.js"></script>
 
     <script type="text/javascript">
@@ -28,7 +31,7 @@
 
                 if ("${user.parkId}" === $(this).html()) {
 
-                    $(this).attr("selected","selected");
+                    $(this).attr("selected", "selected");
 
                 }
             })
@@ -37,7 +40,7 @@
             $.fn.datetimepicker.dates['zh-CN'] = {
                 days: ["星期日", "星期一", "星期二", "星期三", "星期四", "星期五", "星期六", "星期日"],
                 daysShort: ["周日", "周一", "周二", "周三", "周四", "周五", "周六", "周日"],
-                daysMin:  ["日", "一", "二", "三", "四", "五", "六", "日"],
+                daysMin: ["日", "一", "二", "三", "四", "五", "六", "日"],
                 months: ["一月", "二月", "三月", "四月", "五月", "六月", "七月", "八月", "九月", "十月", "十一月", "十二月"],
                 monthsShort: ["一月", "二月", "三月", "四月", "五月", "六月", "七月", "八月", "九月", "十月", "十一月", "十二月"],
                 today: "今天",
@@ -55,7 +58,7 @@
             })
 
             // 时间控件重新加载
-            $("body").on('focus','input[name="dateTag"]',function (event) {
+            $("body").on('focus', 'input[name="dateTag"]', function (event) {
 
                 $(".time").datetimepicker({
                     minView: "month",
@@ -68,7 +71,7 @@
             })
 
             // 新增一行按钮
-            const max = 20;
+            const max = 40;
             $("#newBtn").click(function () {
 
                 const length = $("#stockTable tbody tr").length;
@@ -76,20 +79,20 @@
                 if (length < max) {
                     count += 1;
                     let html = '<tr id="tr' + count + '">';
-                    html += '<td><input type="checkbox" class="select-single" value="tr'+count+'"/></td>';
-                    html += '<td><div class="col-sm-10" style="width: 200px;"><select class="form-control tr'+count+'" name="parkId" id="park'+count+'"><option></option><c:forEach items="${park}" var="park"><option value="${park.id}">${park.name}</option></c:forEach></select></div></td>';
-                    html += '<td><div class="col-sm-10" style="width: 200px;"><select class="form-control tr'+count+' freezerList" name="freezerId"><option></option><c:forEach items="${freezer}" var="freezer"><option value="${freezer.id}">${freezer.name}</option></c:forEach></select></div></td>';
-                    html += '<td><div class="col-sm-10" style="width: 200px;"><input type="text" class="form-control tr'+count+'" name="pile"></div></td>';
-                    html += '<td><div class="col-sm-10" style="width: 200px;"><input type="text" class="form-control tr'+count+' time" name="dateTag"></div></td>';
-                    html += '<td><div class="col-sm-10" style="width: 200px;"><input type="text" class="form-control tr'+count+'" name="shed"></div></td>';
-                    html += '<td><div class="col-sm-10" style="width: 200px;"><input type="text" class="form-control tr'+count+'" name="bud"></div></td>';
-                    html += '<td><div class="col-sm-10" style="width: 200px;"><select class="form-control tr'+count+' typeList" name="type"><option></option><c:forEach items="${type}" var="type"><option value="${type.value}">${type.text}</option></c:forEach></select></div></td>';
-                    html += '<td><div class="col-sm-10" style="width: 200px;"><select class="form-control tr'+count+'" name="grade"><option></option><c:forEach items="${grade}" var="grade"><option value="${grade.value}">${grade.text}</option></c:forEach></select></div></td>';
-                    html += '<td><div class="col-sm-10" style="width: 200px;"><input type="text" class="form-control tr'+count+'" name="amount"></div></td>';
-                    html += '<td><div class="col-sm-10" style="width: 200px;"><select class="form-control tr'+count+'" name="nature"><option></option><c:forEach items="${nature}" var="nature"><option value="${nature.value}">${nature.text}</option></c:forEach></select></div></td>';
-                    html += '<td><div class="col-sm-10" style="width: 200px;"><select class="form-control tr'+count+'" name="peel"><option></option><c:forEach items="${peel}" var="peel"><option value="${peel.value}">${peel.text}</option></c:forEach></select></div></td>';
-                    html += '<td><div class="col-sm-10" style="width: 200px;"><select class="form-control tr'+count+'" name="test"><option></option><c:forEach items="${test}" var="test"><option value="${test.value}">${test.text}</option></c:forEach></select></div></td>';
-                    html += '<td><div class="col-sm-10" style="width: 200px;"><input type="text" class="form-control tr'+count+'" name="remark"></div></td>';
+                    html += '<td><input type="checkbox" class="select-single" value="tr' + count + '"/></td>';
+                    html += '<td><div class="col-sm-10" style="width: 200px;"><select class="form-control tr' + count + '" name="parkId" id="park' + count + '"><option></option><c:forEach items="${park}" var="park"><option value="${park.id}">${park.name}</option></c:forEach></select></div></td>';
+                    html += '<td><div class="col-sm-10" style="width: 200px;"><select class="form-control tr' + count + ' freezerList" name="freezerId"><option></option><c:forEach items="${freezer}" var="freezer"><option value="${freezer.id}">${freezer.name}</option></c:forEach></select></div></td>';
+                    html += '<td><div class="col-sm-10" style="width: 200px;"><input type="text" class="form-control tr' + count + '" name="pile"></div></td>';
+                    html += '<td><div class="col-sm-10" style="width: 200px;"><input type="text" class="form-control tr' + count + ' time" name="dateTag"></div></td>';
+                    html += '<td><div class="col-sm-10" style="width: 200px;"><input type="text" class="form-control tr' + count + '" name="shed"></div></td>';
+                    html += '<td><div class="col-sm-10" style="width: 200px;"><input type="text" class="form-control tr' + count + '" name="bud"></div></td>';
+                    html += '<td><div class="col-sm-10" style="width: 200px;"><select class="form-control tr' + count + ' typeList" name="type"><option></option><c:forEach items="${type}" var="type"><option value="${type.value}">${type.text}</option></c:forEach></select></div></td>';
+                    html += '<td><div class="col-sm-10" style="width: 200px;"><select class="form-control tr' + count + '" name="grade"><option></option><c:forEach items="${grade}" var="grade"><option value="${grade.value}">${grade.text}</option></c:forEach></select></div></td>';
+                    html += '<td><div class="col-sm-10" style="width: 200px;"><input type="text" class="form-control tr' + count + '" name="amount"></div></td>';
+                    html += '<td><div class="col-sm-10" style="width: 200px;"><select class="form-control tr' + count + '" name="nature"><option></option><c:forEach items="${nature}" var="nature"><option value="${nature.value}">${nature.text}</option></c:forEach></select></div></td>';
+                    html += '<td><div class="col-sm-10" style="width: 200px;"><select class="form-control tr' + count + '" name="peel"><option></option><c:forEach items="${peel}" var="peel"><option value="${peel.value}">${peel.text}</option></c:forEach></select></div></td>';
+                    html += '<td><div class="col-sm-10" style="width: 200px;"><select class="form-control tr' + count + '" name="test"><option></option><c:forEach items="${test}" var="test"><option value="${test.value}">${test.text}</option></c:forEach></select></div></td>';
+                    html += '<td><div class="col-sm-10" style="width: 200px;"><input type="text" class="form-control tr' + count + '" name="remark"></div></td>';
                     html += '</tr>';
 
                     $("#stockTable tbody").append(html);
@@ -99,7 +102,7 @@
 
                         if ("${user.parkId}" === $(this).html()) {
 
-                            $(this).attr("selected","selected");
+                            $(this).attr("selected", "selected");
 
                         }
                     })
@@ -110,7 +113,7 @@
                         effects: 'slide',
                         onSelect: function (element) {
 
-                            $('.freezerList').attr('data-val',element.val());
+                            $('.freezerList').attr('data-val', element.val());
 
                         }
                     })
@@ -121,7 +124,7 @@
                         effects: 'slide',
                         onSelect: function (element) {
 
-                            $('.typeList').attr('data-val',element.val());
+                            $('.typeList').attr('data-val', element.val());
 
                         }
                     })
@@ -134,7 +137,7 @@
             })
 
             // 删除按钮
-            $("#delBtn").click(function() {
+            $("#delBtn").click(function () {
                 const $checked = $(".select-single:checked");
                 if ($checked.length === 0) {
                     alert("请至少选中一行！");
@@ -149,13 +152,13 @@
             })
 
             // 全选和反选
-            $(".select-all").prop("checked",false);
-            $(".select-single").prop("checked",false);
-            $(".select-all").click(function() {
-                $(".select-single").prop("checked",this.checked);
+            $(".select-all").prop("checked", false);
+            $(".select-single").prop("checked", false);
+            $(".select-all").click(function () {
+                $(".select-single").prop("checked", this.checked);
             })
-            $("#stockTbody").on("click",$(".select-single"),function () {
-                $(".select-all").prop("checked",$(".select-single:checked").length === $(".select-single").length);
+            $("#stockTbody").on("click", $(".select-single"), function () {
+                $(".select-all").prop("checked", $(".select-single:checked").length === $(".select-single").length);
             })
 
             // 提交按钮
@@ -182,7 +185,7 @@
                 effects: 'slide',
                 onSelect: function (element) {
 
-                    $('.freezerList').attr('data-val',element.val());
+                    $('.freezerList').attr('data-val', element.val());
 
                 }
             })
@@ -193,7 +196,7 @@
                 effects: 'slide',
                 onSelect: function (element) {
 
-                    $('.typeList').attr('data-val',element.val());
+                    $('.typeList').attr('data-val', element.val());
 
                 }
             })
@@ -204,9 +207,25 @@
 
                 var $checked = $(".select-single:checked");
 
+                // 判断标签时间不能为空
+                for (var l = 0;l <$checked.length;l ++) {
+
+                    var num = $checked[l].value;
+
+                    var $dateTag = $("." + num + ".time");
+
+                    if ($dateTag.val() === "") {
+
+                        alert("标签时间不能为空！");
+
+                        return false;
+                    }
+
+                }
+
                 var param = '[';
 
-                for (var i = 0; i < $checked.length; i ++) {
+                for (var i = 0; i < $checked.length; i++) {
 
                     let trNum = $checked[i].value;
 
@@ -242,9 +261,9 @@
                     data: param,
                     type: "post",
                     dataType: "json",
-                    contentType : "application/json",
+                    contentType: "application/json",
                     success: function (data) {
-                        
+
                         if (data.success) {
 
                             // 录入成功，提示记录条数
@@ -278,7 +297,8 @@
             <div class="btn-toolbar" role="toolbar"
                  style="background-color: #F7F7F7; height: 50px; position: relative;top: -10px;">
                 <div class="btn-group" style="position: relative; top: 18%;">
-                    <button type="button" class="btn btn-primary" id="addBtn"><span class="glyphicon glyphicon-pencil"></span> 提交
+                    <button type="button" class="btn btn-primary" id="addBtn"><span
+                            class="glyphicon glyphicon-pencil"></span> 提交
                     </button>
                     <button type="button" class="btn btn-default" id="newBtn"><span
                             class="glyphicon glyphicon-plus"></span> 新增一行
