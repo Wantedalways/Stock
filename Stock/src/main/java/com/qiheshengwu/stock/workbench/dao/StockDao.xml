@@ -71,7 +71,7 @@
             </if>
         </where>
         order by
-            s.dateCurrent desc
+            s.parkId,s.freezerId,s.dateTag desc
     </select>
 
     <select id="selectTotal" resultType="int">

@@ -66,9 +66,16 @@ public class StockController {
      */
     @RequestMapping(value = "/list.do")
     @ResponseBody
-    public PageListVo<Stock> stockList(Integer pageNo, Integer pageSize, Stock stock) {
+    public PageListVo<Stock> stockList(Integer pageNo, Integer pageSize, Stock stock) throws ParseException {
 
         List<Stock> stockList = stockService.stockList(pageNo,pageSize,stock);
+
+        for (Stock s : stockList) {
+
+            s.setDateCurrent(DateUtil.getSimpleDate());
+            s.setAccountAge(DateUtil.getSubtractDate(s.getDateTag(),s.getDateCurrent()));
+
+        }
 
         Integer total = stockService.totalByCondition(stock);
 

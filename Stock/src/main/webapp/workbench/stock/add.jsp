@@ -80,18 +80,18 @@
                     count += 1;
                     let html = '<tr id="tr' + count + '">';
                     html += '<td><input type="checkbox" class="select-single" value="tr' + count + '"/></td>';
-                    html += '<td><div class="col-sm-10" style="width: 200px;"><select class="form-control tr' + count + '" name="parkId" id="park' + count + '"><option></option><c:forEach items="${park}" var="park"><option value="${park.id}">${park.name}</option></c:forEach></select></div></td>';
-                    html += '<td><div class="col-sm-10" style="width: 200px;"><select class="form-control tr' + count + ' freezerList" name="freezerId"><option></option><c:forEach items="${freezer}" var="freezer"><option value="${freezer.id}">${freezer.name}</option></c:forEach></select></div></td>';
-                    html += '<td><div class="col-sm-10" style="width: 200px;"><input type="text" class="form-control tr' + count + '" name="pile"></div></td>';
-                    html += '<td><div class="col-sm-10" style="width: 200px;"><input type="text" class="form-control tr' + count + ' time" name="dateTag"></div></td>';
-                    html += '<td><div class="col-sm-10" style="width: 200px;"><input type="text" class="form-control tr' + count + '" name="shed"></div></td>';
-                    html += '<td><div class="col-sm-10" style="width: 200px;"><input type="text" class="form-control tr' + count + '" name="bud"></div></td>';
-                    html += '<td><div class="col-sm-10" style="width: 200px;"><select class="form-control tr' + count + ' typeList" name="type"><option></option><c:forEach items="${type}" var="type"><option value="${type.value}">${type.text}</option></c:forEach></select></div></td>';
-                    html += '<td><div class="col-sm-10" style="width: 200px;"><select class="form-control tr' + count + '" name="grade"><option></option><c:forEach items="${grade}" var="grade"><option value="${grade.value}">${grade.text}</option></c:forEach></select></div></td>';
-                    html += '<td><div class="col-sm-10" style="width: 200px;"><input type="text" class="form-control tr' + count + '" name="amount"></div></td>';
-                    html += '<td><div class="col-sm-10" style="width: 200px;"><select class="form-control tr' + count + '" name="nature"><option></option><c:forEach items="${nature}" var="nature"><option value="${nature.value}">${nature.text}</option></c:forEach></select></div></td>';
-                    html += '<td><div class="col-sm-10" style="width: 200px;"><select class="form-control tr' + count + '" name="peel"><option></option><c:forEach items="${peel}" var="peel"><option value="${peel.value}">${peel.text}</option></c:forEach></select></div></td>';
-                    html += '<td><div class="col-sm-10" style="width: 200px;"><select class="form-control tr' + count + '" name="test"><option></option><c:forEach items="${test}" var="test"><option value="${test.value}">${test.text}</option></c:forEach></select></div></td>';
+                    html += '<td><div class="col-sm-10" style="width: 150px;"><select class="form-control tr' + count + '" name="parkId" id="park' + count + '"><option></option><c:forEach items="${park}" var="park"><option value="${park.id}">${park.name}</option></c:forEach></select></div></td>';
+                    html += '<td><div class="col-sm-10" style="width: 150px;"><select class="form-control tr' + count + ' freezerList" name="freezerId"><option></option><c:forEach items="${freezer}" var="freezer"><option value="${freezer.id}">${freezer.name}</option></c:forEach></select></div></td>';
+                    html += '<td><div class="col-sm-10" style="width: 150px;"><input type="text" class="form-control tr' + count + '" name="pile"></div></td>';
+                    html += '<td><div class="col-sm-10" style="width: 130px;"><input type="text" class="form-control tr' + count + ' time" name="dateTag"></div></td>';
+                    html += '<td><div class="col-sm-10" style="width: 100px;"><input type="text" class="form-control tr' + count + '" name="shed"></div></td>';
+                    html += '<td><div class="col-sm-10" style="width: 130px;"><input type="text" class="form-control tr' + count + '" name="bud"></div></td>';
+                    html += '<td><div class="col-sm-10" style="width: 150px;"><select class="form-control tr' + count + ' typeList" name="type"><option></option><c:forEach items="${type}" var="type"><option value="${type.value}">${type.text}</option></c:forEach></select></div></td>';
+                    html += '<td><div class="col-sm-10" style="width: 100px;"><select class="form-control tr' + count + '" name="grade"><option></option><c:forEach items="${grade}" var="grade"><option value="${grade.value}">${grade.text}</option></c:forEach></select></div></td>';
+                    html += '<td><div class="col-sm-10" style="width: 100px;"><input type="text" class="form-control tr' + count + '" name="amount"></div></td>';
+                    html += '<td><div class="col-sm-10" style="width: 100px;"><select class="form-control tr' + count + '" name="nature"><option></option><c:forEach items="${nature}" var="nature"><option value="${nature.value}">${nature.text}</option></c:forEach></select></div></td>';
+                    html += '<td><div class="col-sm-10" style="width: 120px;"><select class="form-control tr' + count + '" name="peel"><option></option><c:forEach items="${peel}" var="peel"><option value="${peel.value}">${peel.text}</option></c:forEach></select></div></td>';
+                    html += '<td><div class="col-sm-10" style="width: 150px;"><select class="form-control tr' + count + '" name="test"><option></option><c:forEach items="${test}" var="test"><option value="${test.value}">${test.text}</option></c:forEach></select></div></td>';
                     html += '<td><div class="col-sm-10" style="width: 200px;"><input type="text" class="form-control tr' + count + '" name="remark"></div></td>';
                     html += '</tr>';
 
@@ -332,7 +332,7 @@
                         <tr id="tr1">
                             <td><input type="checkbox" class="select-single" value="tr1"/></td>
                             <td>
-                                <div class="col-sm-10" style="width: 200px;">
+                                <div class="col-sm-10" style="width: 150px;">
                                     <select class="form-control tr1" name="parkId" id="park1">
                                         <option></option>
                                         <c:forEach items="${park}" var="park">
@@ -342,7 +342,7 @@
                                 </div>
                             </td>
                             <td>
-                                <div class="col-sm-10" style="width: 200px;">
+                                <div class="col-sm-10" style="width: 150px;">
                                     <select class="form-control tr1 freezerList" name="freezerId">
                                         <option></option>
                                         <c:forEach items="${freezer}" var="freezer">
@@ -352,27 +352,27 @@
                                 </div>
                             </td>
                             <td>
-                                <div class="col-sm-10" style="width: 200px;">
+                                <div class="col-sm-10" style="width: 150px;">
                                     <input type="text" class="form-control tr1" name="pile">
                                 </div>
                             </td>
                             <td>
-                                <div class="col-sm-10" style="width: 200px;">
+                                <div class="col-sm-10" style="width: 130px;">
                                     <input type="text" class="form-control tr1 time" name="dateTag">
                                 </div>
                             </td>
                             <td>
-                                <div class="col-sm-10" style="width: 200px;">
+                                <div class="col-sm-10" style="width: 100px;">
                                     <input type="text" class="form-control tr1" name="shed">
                                 </div>
                             </td>
                             <td>
-                                <div class="col-sm-10" style="width: 200px;">
+                                <div class="col-sm-10" style="width: 130px;">
                                     <input type="text" class="form-control tr1" name="bud">
                                 </div>
                             </td>
                             <td>
-                                <div class="col-sm-10" style="width: 200px;">
+                                <div class="col-sm-10" style="width: 150px;">
                                     <select class="form-control tr1 typeList" name="type">
                                         <option></option>
                                         <c:forEach items="${type}" var="type">
@@ -382,7 +382,7 @@
                                 </div>
                             </td>
                             <td>
-                                <div class="col-sm-10" style="width: 200px;">
+                                <div class="col-sm-10" style="width: 100px;">
                                     <select class="form-control tr1" name="grade">
                                         <option></option>
                                         <c:forEach items="${grade}" var="grade">
@@ -392,12 +392,12 @@
                                 </div>
                             </td>
                             <td>
-                                <div class="col-sm-10" style="width: 200px;">
+                                <div class="col-sm-10" style="width: 100px;">
                                     <input type="text" class="form-control tr1" name="amount">
                                 </div>
                             </td>
                             <td>
-                                <div class="col-sm-10" style="width: 200px;">
+                                <div class="col-sm-10" style="width: 100px;">
                                     <select class="form-control tr1" name="nature">
                                         <option></option>
                                         <c:forEach items="${nature}" var="nature">
@@ -407,7 +407,7 @@
                                 </div>
                             </td>
                             <td>
-                                <div class="col-sm-10" style="width: 200px;">
+                                <div class="col-sm-10" style="width: 120px;">
                                     <select class="form-control tr1" name="peel">
                                         <option></option>
                                         <c:forEach items="${peel}" var="peel">
@@ -417,7 +417,7 @@
                                 </div>
                             </td>
                             <td>
-                                <div class="col-sm-10" style="width: 200px;">
+                                <div class="col-sm-10" style="width: 150px;">
                                     <select class="form-control tr1" name="test">
                                         <option></option>
                                         <c:forEach items="${test}" var="test">
