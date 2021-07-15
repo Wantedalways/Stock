@@ -41,4 +41,10 @@ public interface StockDao {
      */
     List<Stock> selectSources();
 
+    /**
+     * 删除库存信息
+     * @param ids 库存主键
+     * @return 删除记录条数
+     */
+    int deleteById(String[] ids);
 }

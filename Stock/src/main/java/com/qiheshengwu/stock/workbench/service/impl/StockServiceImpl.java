@@ -48,5 +48,19 @@ public class StockServiceImpl implements StockService {
         return stockDao.selectTotal(stock);
     }
 
+    @Override
+    public boolean delStock(String[] id) throws DMLException {
+
+        int result = stockDao.deleteById(id);
+
+        if (result != id.length) {
+
+            throw new DMLException("删除失败！");
+
+        }
+
+        return true;
+    }
+
 
 }

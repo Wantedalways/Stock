@@ -20,7 +20,7 @@
                     #{stock.bud},
                     #{stock.type},
                     #{stock.grade},
-                    #{stock.amount},
+                    ifnull(#{stock.amount},0),
                     #{stock.nature},
                     #{stock.peel},
                     #{stock.test},
@@ -103,5 +103,17 @@
         update stock_temp set parkId=#{parkId} where parkId=#{park}
     </update>
 
+    <delete id="deleteById">
+        delete from
+            tbl_stock
+        <if test="array != null">
+            <where>
+                id in
+                <foreach collection="array" item="id" open="(" close=")" separator=",">
+                   #{id}
+                </foreach>
+            </where>
+        </if>
+    </delete>
 
 </mapper>

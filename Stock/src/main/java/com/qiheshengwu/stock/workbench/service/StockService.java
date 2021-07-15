@@ -31,4 +31,11 @@ public interface StockService {
      * @return 符合条件的库存总条数
      */
     Integer totalByCondition(Stock stock);
+
+    /**
+     * 删除库存信息
+     * @param id 库存主键
+     * @return 删除执行结果
+     */
+    boolean delStock(String[] id) throws DMLException;
 }

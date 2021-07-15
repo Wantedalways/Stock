@@ -86,4 +86,22 @@ public class StockController {
         return result;
     }
 
+    /**
+     * 删除库存信息
+     * @param id 库存主键
+     * @return 删除执行结果和通知
+     */
+    @RequestMapping(value = "/del.do")
+    @ResponseBody
+    public Map<String, Object> delStock(String[] id) throws DMLException {
+
+        boolean result = stockService.delStock(id);
+
+        Map<String,Object> resultMap = new HashMap<>(2);
+        resultMap.put("success",result);
+        resultMap.put("message","删除成功，共" + id.length + "条数据！");
+
+        return resultMap;
+    }
+
 }

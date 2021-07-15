@@ -58,6 +58,21 @@
 
             })
 
+            // 修改库存信息
+            $("#editBtn").click(function () {
+
+                edit();
+
+            })
+
+            // 删除库存信息
+            $("#delBtn").click(function () {
+
+                confirm("确认删除" + $(".select-single:checked").length + "条数据？");
+
+                del();
+
+            });
         })
 
         // 展示库存列表的方法
@@ -142,7 +157,6 @@
                             stockList(page,pageSize);
 
                         }
-
                     })
                 }
             })
@@ -159,15 +173,15 @@
 <input type="hidden" id="hide-type">
 <input type="hidden" id="hide-grade">
 
-<!-- 创建市场活动的模态窗口 -->
-<div class="modal fade" id="createActivityModal" role="dialog">
+<!-- 修改库存信息的模态窗口 -->
+<div class="modal fade" id="editStockModal" role="dialog">
     <div class="modal-dialog" role="document" style="width: 85%;">
         <div class="modal-content">
             <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal">
                     <span aria-hidden="true">×</span>
                 </button>
-                <h4 class="modal-title" id="myModalLabel1">创建市场活动</h4>
+                <h4 class="modal-title" id="myModalLabel1">修改库存信息</h4>
             </div>
             <div class="modal-body">
 
@@ -220,72 +234,6 @@
         </div>
     </div>
 </div>
-
-<!-- 修改市场活动的模态窗口 -->
-<div class="modal fade" id="editActivityModal" role="dialog">
-    <div class="modal-dialog" role="document" style="width: 85%;">
-        <div class="modal-content">
-            <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal">
-                    <span aria-hidden="true">×</span>
-                </button>
-                <h4 class="modal-title" id="myModalLabel2">修改市场活动</h4>
-            </div>
-            <div class="modal-body">
-
-                <form class="form-horizontal" role="form">
-
-                    <input type="hidden" id="hide-id"/>
-
-                    <div class="form-group">
-                        <label for="edit-marketActivityOwner" class="col-sm-2 control-label">所有者<span
-                                style="font-size: 15px; color: red;">*</span></label>
-                        <div class="col-sm-10" style="width: 300px;">
-                            <select class="form-control" id="edit-marketActivityOwner"></select>
-                        </div>
-                        <label for="edit-marketActivityName" class="col-sm-2 control-label">名称<span
-                                style="font-size: 15px; color: red;">*</span></label>
-                        <div class="col-sm-10" style="width: 300px;">
-                            <input type="text" class="form-control" id="edit-marketActivityName">
-                        </div>
-                    </div>
-
-                    <div class="form-group">
-                        <label for="edit-startTime" class="col-sm-2 control-label">开始日期</label>
-                        <div class="col-sm-10" style="width: 300px;">
-                            <input type="text" class="form-control time" id="edit-startTime">
-                        </div>
-                        <label for="edit-endTime" class="col-sm-2 control-label">结束日期</label>
-                        <div class="col-sm-10" style="width: 300px;">
-                            <input type="text" class="form-control time" id="edit-endTime">
-                        </div>
-                    </div>
-
-                    <div class="form-group">
-                        <label for="edit-cost" class="col-sm-2 control-label">成本</label>
-                        <div class="col-sm-10" style="width: 300px;">
-                            <input type="text" class="form-control" id="edit-cost">
-                        </div>
-                    </div>
-
-                    <div class="form-group">
-                        <label for="edit-describe" class="col-sm-2 control-label">描述</label>
-                        <div class="col-sm-10" style="width: 81%;">
-                            <textarea class="form-control" rows="3" id="edit-describe"></textarea>
-                        </div>
-                    </div>
-
-                </form>
-
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
-                <button type="button" class="btn btn-primary" id="edit-btn">更新</button>
-            </div>
-        </div>
-    </div>
-</div>
-
 
 <div>
     <div style="position: relative; left: 10px; top: -10px;">
@@ -356,10 +304,10 @@
         <div class="btn-toolbar" role="toolbar"
              style="background-color: #F7F7F7; height: 50px; position: relative;top: 5px;">
             <div class="btn-group" style="position: relative; top: 18%;">
-                <button type="button" class="btn btn-info" id="addEditModal"><span
+                <button type="button" class="btn btn-info" id="editBtn"><span
                         class="glyphicon glyphicon-pencil"></span> 修改
                 </button>
-                <button type="button" class="btn btn-danger" id="del-btn"><span
+                <button type="button" class="btn btn-danger" id="delBtn"><span
                         class="glyphicon glyphicon-minus"></span> 删除
                 </button>
             </div>
@@ -395,5 +343,6 @@
         </div>
     </div>
 </div>
+<script type="text/javascript" src="static/js/workbench/list.js"></script>
 </body>
 </html>
