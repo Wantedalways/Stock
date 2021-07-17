@@ -1,6 +1,7 @@
 package com.qiheshengwu.stock.workbench.service;
 
 import com.qiheshengwu.stock.exception.DMLException;
+import com.qiheshengwu.stock.workbench.entity.LogStock;
 import com.qiheshengwu.stock.workbench.entity.Stock;
 
 import java.util.List;
@@ -36,6 +37,21 @@ public interface StockService {
      * 删除库存信息
      * @param id 库存主键
      * @return 删除执行结果
+     * @throws DMLException 事务
      */
     boolean delStock(String[] id) throws DMLException;
+
+    /** 查询单条库存记录
+     * @param id 库存主键
+     * @return 对应的库存记录
+     */
+    Stock getStockById(String id);
+
+
+    /** 修改库存信息
+     * @param newStock 修改后的数据
+     * @param logStock 修改操作日志
+     * @throws DMLException 修改失败
+     */
+    void updateStock(Stock newStock, LogStock logStock) throws DMLException;
 }

@@ -2,7 +2,9 @@ package com.qiheshengwu.stock.workbench.service.impl;
 
 import com.github.pagehelper.PageHelper;
 import com.qiheshengwu.stock.exception.DMLException;
+import com.qiheshengwu.stock.workbench.dao.LogDao;
 import com.qiheshengwu.stock.workbench.dao.StockDao;
+import com.qiheshengwu.stock.workbench.entity.LogStock;
 import com.qiheshengwu.stock.workbench.entity.Stock;
 import com.qiheshengwu.stock.workbench.service.StockService;
 import org.springframework.stereotype.Service;
@@ -18,6 +20,9 @@ public class StockServiceImpl implements StockService {
 
     @Resource
     private StockDao stockDao;
+
+    @Resource
+    private LogDao logDao;
 
     @Override
     public boolean addStock(List<Stock> stockList) throws DMLException {
@@ -60,6 +65,35 @@ public class StockServiceImpl implements StockService {
         }
 
         return true;
+    }
+
+    @Override
+    public Stock getStockById(String id) {
+
+        return stockDao.selectById(id);
+    }
+
+    @Override
+    public void updateStock(Stock newStock, LogStock logStock) throws DMLException {
+
+        // 修改库存信息
+        int resultStock = stockDao.updateStock(newStock);
+
+        if (resultStock != 1) {
+
+            throw new DMLException("修改库存信息失败！");
+
+        }
+
+        // 添加日志
+        int resultLog = logDao.insertEditStockLog(logStock);
+
+        if (resultLog != 1) {
+
+            throw new DMLException("库存日志保存失败！");
+
+        }
+
     }
 
 

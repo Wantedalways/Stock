@@ -95,14 +95,6 @@
         </where>
     </select>
 
-    <select id="selectSources" resultType="com.qiheshengwu.stock.workbench.entity.Stock">
-        select * from stock_temp
-    </select>
-
-    <update id="updateSources">
-        update stock_temp set parkId=#{parkId} where parkId=#{park}
-    </update>
-
     <delete id="deleteById">
         delete from
             tbl_stock
@@ -116,4 +108,78 @@
         </if>
     </delete>
 
+    <select id="selectById" resultType="com.qiheshengwu.stock.workbench.entity.Stock">
+        select
+            s.id,
+            p.name as parkId,
+            s.freezerId,
+            s.pile,
+            s.dateTag,
+            s.shed,
+            s.bud,
+            s.type,
+            s.grade,
+            s.amount,
+            s.nature,
+            s.peel,
+            s.test,
+            s.dateCurrent,
+            s.accountAge,
+            s.remark
+        from
+            tbl_stock s
+        join
+            tbl_park p
+        on
+            s.parkId=p.id
+        where
+            s.id=#{id}
+    </select>
+
+    <select id="selectSingle" resultType="com.qiheshengwu.stock.workbench.entity.Stock">
+        select
+            id,
+            parkId,
+            freezerId,
+            pile,
+            dateTag,
+            shed,
+            bud,
+            type,
+            grade,
+            amount,
+            nature,
+            peel,
+            test,
+            dateCurrent,
+            accountAge,
+            remark
+        from
+            tbl_stock
+        where
+            id=#{id}
+    </select>
+
+    <update id="updateStock">
+        update
+            tbl_stock
+        set
+            parkId=#{parkId},
+            freezerId=#{freezerId},
+            pile=#{pile},
+            dateTag=#{dateTag},
+            shed=#{shed},
+            bud=#{bud},
+            type=#{type},
+            grade=#{grade},
+            amount=#{amount},
+            nature=#{nature},
+            peel=#{peel},
+            test=#{test},
+            dateCurrent=#{dateCurrent},
+            accountAge=#{accountAge},
+            remark=#{remark}
+        where
+            id=#{id}
+    </update>
 </mapper>

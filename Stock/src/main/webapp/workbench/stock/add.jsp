@@ -131,7 +131,7 @@
 
                 } else {
 
-                    alert("最大支持二十行数据！");
+                    alert("最大支持40行数据！");
 
                 }
             })
@@ -144,10 +144,14 @@
                 } else if ($(".select-single").length === $checked.length) {
                     alert("至少保留一行！");
                 } else {
-                    confirm("确认删除？");
-                    $checked.each(function () {
-                        $(this).parent().parent().remove();
-                    })
+                    if (confirm("确认删除？")) {
+
+                        $checked.each(function () {
+                            $(this).parent().parent().remove();
+                        })
+
+                    }
+
                 }
             })
 
@@ -170,10 +174,11 @@
 
                 } else {
 
-                    confirm("确认提交数据？");
+                    if (confirm("确认提交数据？")) {
 
-                    add();
+                        add();
 
+                    }
                 }
 
 

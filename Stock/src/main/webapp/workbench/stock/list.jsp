@@ -10,17 +10,40 @@
     <base href="<%=basePath%>"/>
     <link href="static/jquery/bootstrap-3.4.1-dist/css/bootstrap.min.css" type="text/css" rel="stylesheet"/>
     <link href="static/jquery/jquery-editable-select-master/jquery-editable-select.css" type="text/css" rel="stylesheet">
+    <link href="static/jquery/bootstrap-datetimepicker-master/css/bootstrap-datetimepicker.min.css" type="text/css" rel="stylesheet">
 
 
     <script type="text/javascript" src="static/jquery/jquery-3.6.0.min.js"></script>
     <script type="text/javascript" src="static/jquery/bootstrap-3.4.1-dist/js/bootstrap.min.js"></script>
     <script type="text/javascript" src="static/jquery/bootstrap-paginator.min.js"></script>
     <script type="text/javascript" src="static/jquery/jquery-editable-select-master/jquery-editable-select.js"></script>
+    <script type="text/javascript" src="static/jquery/bootstrap-datetimepicker-master/js/bootstrap-datetimepicker.js"></script>
 
 
     <script type="text/javascript">
 
         $(function () {
+
+            // 时间模块
+            $.fn.datetimepicker.dates['zh-CN'] = {
+                days: ["星期日", "星期一", "星期二", "星期三", "星期四", "星期五", "星期六", "星期日"],
+                daysShort: ["周日", "周一", "周二", "周三", "周四", "周五", "周六", "周日"],
+                daysMin: ["日", "一", "二", "三", "四", "五", "六", "日"],
+                months: ["一月", "二月", "三月", "四月", "五月", "六月", "七月", "八月", "九月", "十月", "十一月", "十二月"],
+                monthsShort: ["一月", "二月", "三月", "四月", "五月", "六月", "七月", "八月", "九月", "十月", "十一月", "十二月"],
+                today: "今天",
+                suffix: [],
+                meridiem: ["上午", "下午"]
+            }
+
+            $(".time").datetimepicker({
+                minView: "month",
+                language: 'zh-CN',
+                format: 'yyyy-mm-dd',
+                autoclose: true,
+                todayBtn: true,
+                pickerPosition: "bottom-left"
+            })
 
             stockList(1,10);
 
@@ -61,17 +84,33 @@
             // 修改库存信息
             $("#editBtn").click(function () {
 
-                edit();
+                const $checked = $(".select-single:checked");
+
+                if ($checked.length === 0) {
+
+                    alert("请选中数据！");
+
+                } else if ($checked.length > 1) {
+
+                    alert("仅支持修改单条数据！");
+
+                } else {
+
+                    edit($checked);
+
+                }
+
 
             })
 
             // 删除库存信息
             $("#delBtn").click(function () {
 
-                confirm("确认删除" + $(".select-single:checked").length + "条数据？");
+                if (confirm("确认删除" + $(".select-single:checked").length + "条数据？")) {
 
-                del();
+                    del();
 
+                }
             });
         })
 
@@ -185,42 +224,115 @@
             </div>
             <div class="modal-body">
 
-                <form class="form-horizontal" role="form" id="addActivityForm">
+                <form class="form-horizontal" role="form" id="editStockForm">
+
+                    <input type="hidden" id="hide-id">
 
                     <div class="form-group">
-                        <label for="create-marketActivityOwner" class="col-sm-2 control-label">所有者<span
-                                style="font-size: 15px; color: red;">*</span></label>
+                        <label for="edit-parkId" class="col-sm-2 control-label">园区</label>
                         <div class="col-sm-10" style="width: 300px;">
-                            <select class="form-control" id="create-marketActivityOwner"></select>
+                            <select class="form-control" id="edit-parkId">
+                                <option></option>
+                                <c:forEach items="${park}" var="park">
+                                    <option value="${park.id}">${park.name}</option>
+                                </c:forEach>
+                            </select>
                         </div>
-                        <label for="create-marketActivityName" class="col-sm-2 control-label">名称<span
-                                style="font-size: 15px; color: red;">*</span></label>
+                        <label for="edit-freezerId" class="col-sm-2 control-label">冷库号</label>
                         <div class="col-sm-10" style="width: 300px;">
-                            <input type="text" class="form-control" id="create-marketActivityName">
+                            <select class="form-control freezerList" name="freezerId" id="edit-freezerId">
+                                <option></option>
+                                <c:forEach items="${freezer}" var="freezer">
+                                    <option value="${freezer.id}">${freezer.name}</option>
+                                </c:forEach>
+                            </select>
                         </div>
                     </div>
 
                     <div class="form-group">
-                        <label for="create-startTime" class="col-sm-2 control-label">开始日期</label>
+                        <label for="edit-pile" class="col-sm-2 control-label">垛位号</label>
                         <div class="col-sm-10" style="width: 300px;">
-                            <input type="text" class="form-control time" id="create-startTime">
+                            <input type="text" class="form-control" id="edit-pile">
                         </div>
-                        <label for="create-endTime" class="col-sm-2 control-label">结束日期</label>
+                        <label for="edit-dateTag" class="col-sm-2 control-label">标签日期</label>
                         <div class="col-sm-10" style="width: 300px;">
-                            <input type="text" class="form-control time" id="create-endTime">
+                            <input type="text" class="form-control time" id="edit-dateTag">
                         </div>
                     </div>
-                    <div class="form-group">
 
-                        <label for="create-cost" class="col-sm-2 control-label">成本</label>
+                    <div class="form-group">
+                        <label for="edit-shed" class="col-sm-2 control-label">培养棚号</label>
                         <div class="col-sm-10" style="width: 300px;">
-                            <input type="text" class="form-control" id="create-cost">
+                            <input type="text" class="form-control" id="edit-shed">
+                        </div>
+                        <label for="edit-bud" class="col-sm-2 control-label">菇蕾量</label>
+                        <div class="col-sm-10" style="width: 300px;">
+                            <input type="text" class="form-control" id="edit-bud">
                         </div>
                     </div>
+
                     <div class="form-group">
-                        <label for="create-describe" class="col-sm-2 control-label">描述</label>
+                        <label for="edit-type" class="col-sm-2 control-label">品种</label>
+                        <div class="col-sm-10" style="width: 300px;">
+                            <select class="form-control typeList" name="type" id="edit-type">
+                                <option></option>
+                                <c:forEach items="${type}" var="type">
+                                    <option value="${type.value}">${type.text}</option>
+                                </c:forEach>
+                            </select>
+                        </div>
+                        <label for="edit-grade" class="col-sm-2 control-label">等级</label>
+                        <div class="col-sm-10" style="width: 300px;">
+                            <select class="form-control" name="grade" id="edit-grade">
+                                <option></option>
+                                <c:forEach items="${grade}" var="grade">
+                                    <option value="${grade.value}">${grade.text}</option>
+                                </c:forEach>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="edit-amount" class="col-sm-2 control-label">数量</label>
+                        <div class="col-sm-10" style="width: 300px;">
+                            <input type="text" class="form-control" id="edit-amount">
+                        </div>
+                        <label for="edit-nature" class="col-sm-2 control-label">存储性质</label>
+                        <div class="col-sm-10" style="width: 300px;">
+                            <select class="form-control" name="nature" id="edit-nature">
+                                <option></option>
+                                <c:forEach items="${nature}" var="nature">
+                                    <option value="${nature.value}">${nature.text}</option>
+                                </c:forEach>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="edit-peel" class="col-sm-2 control-label">是否脱皮</label>
+                        <div class="col-sm-10" style="width: 300px;">
+                            <select class="form-control" name="peel" id="edit-peel">
+                                <option></option>
+                                <c:forEach items="${peel}" var="peel">
+                                    <option value="${peel.value}">${peel.text}</option>
+                                </c:forEach>
+                            </select>
+                        </div>
+                        <label for="edit-test" class="col-sm-2 control-label">是否实验菌棒</label>
+                        <div class="col-sm-10" style="width: 300px;">
+                            <select class="form-control" name="test" id="edit-test">
+                                <option></option>
+                                <c:forEach items="${test}" var="test">
+                                    <option value="${test.value}">${test.text}</option>
+                                </c:forEach>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="edit-remark" class="col-sm-2 control-label">备注</label>
                         <div class="col-sm-10" style="width: 81%;">
-                            <textarea class="form-control" rows="3" id="create-describe"></textarea>
+                            <textarea class="form-control" rows="3" id="edit-remark"></textarea>
                         </div>
                     </div>
 
@@ -229,7 +341,7 @@
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
-                <button type="button" class="btn btn-primary" id="saveCreateModal">保存</button>
+                <button type="button" class="btn btn-primary" id="edit-save">保存</button>
             </div>
         </div>
     </div>

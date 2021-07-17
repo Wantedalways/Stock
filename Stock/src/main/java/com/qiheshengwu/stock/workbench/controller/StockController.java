@@ -1,10 +1,13 @@
 package com.qiheshengwu.stock.workbench.controller;
 
 import com.qiheshengwu.stock.exception.DMLException;
+import com.qiheshengwu.stock.settings.entity.User;
 import com.qiheshengwu.stock.util.DateUtil;
 import com.qiheshengwu.stock.util.UUIDUtil;
 import com.qiheshengwu.stock.vo.PageListVo;
+import com.qiheshengwu.stock.workbench.entity.LogStock;
 import com.qiheshengwu.stock.workbench.entity.Stock;
+import com.qiheshengwu.stock.workbench.service.LogService;
 import com.qiheshengwu.stock.workbench.service.StockService;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -12,6 +15,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.annotation.Resource;
+import javax.servlet.http.HttpServletRequest;
 import java.text.ParseException;
 import java.util.HashMap;
 import java.util.List;
@@ -27,6 +31,9 @@ public class StockController {
 
     @Resource
     private StockService stockService;
+
+    @Resource
+    private LogService logService;
 
     /**
      * 添加库存信息
@@ -104,4 +111,57 @@ public class StockController {
         return resultMap;
     }
 
+    /**
+     * 查询单条库存记录
+     * @param id 库存主键
+     * @return 对应的库存记录
+     */
+    @RequestMapping(value = "/get.do")
+    @ResponseBody
+    public Stock getStockById(String id) {
+
+        return stockService.getStockById(id);
+
+    }
+
+    /**
+     * 修改库存信息
+     * @param newStock 修改后数据
+     * @return 返回修改结果
+     */
+    @RequestMapping(value = "/update.do")
+    @ResponseBody
+    public Map<String,Object> updateStock(Stock newStock, HttpServletRequest request) throws IllegalAccessException, DMLException, ParseException {
+
+        newStock.setDateCurrent(DateUtil.getSimpleDate());
+        newStock.setAccountAge(DateUtil.getSubtractDate(newStock.getDateTag(),newStock.getDateCurrent()));
+        // 形成修改日志
+        LogStock logStock = logService.stockEditLog(newStock);
+
+        User user = (User) request.getSession().getAttribute("user");
+
+        Map<String,Object> resultMap = new HashMap<>(2);
+
+        // 判断数据是否更改
+        if (logStock != null) {
+
+            // 填充日志数据
+            logStock.setEditBy(user.getId() + "-" + user.getName() + "-" + user.getParkId());
+            logStock.setEditTime(DateUtil.getDate());
+
+            // 修改数据并添加日志
+            stockService.updateStock(newStock,logStock);
+
+            resultMap.put("success",true);
+            resultMap.put("message","库存信息修改成功！");
+
+        } else {
+
+            resultMap.put("success",false);
+            resultMap.put("message","库存信息未修改！");
+
+        }
+
+        return resultMap;
+    }
 }

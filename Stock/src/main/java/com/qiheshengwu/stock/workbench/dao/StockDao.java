@@ -47,4 +47,23 @@ public interface StockDao {
      * @return 删除记录条数
      */
     int deleteById(String[] ids);
+
+    /** 查询单条库存记录
+     * @param id 库存主键
+     * @return 对应的库存记录
+     */
+    Stock selectById(String id);
+
+    /** 通过id查询单条库存，不替换园区id
+     * @param id 库存id
+     * @return 库存信息
+     */
+    Stock selectSingle(String id);
+
+
+    /** 修改库存信息
+     * @param newStock 修改后数据
+     * @return 修改操作返回值
+     */
+    int updateStock(Stock newStock);
 }

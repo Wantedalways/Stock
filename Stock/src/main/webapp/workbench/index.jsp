@@ -15,6 +15,7 @@
 
         $(function () {
 
+            // 修改密码
             $("#editPwdBtn").click(function () {
 
                 var oldPwd = $.trim($("#oldPwd").val());
