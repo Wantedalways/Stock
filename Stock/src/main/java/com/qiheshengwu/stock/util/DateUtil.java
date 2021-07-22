@@ -3,6 +3,7 @@ package com.qiheshengwu.stock.util;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.TimeZone;
 
 /**
  * @author Wantedalways
@@ -14,6 +15,8 @@ public class DateUtil {
         Date date = new Date();
         SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 
+        simpleDateFormat.setTimeZone(TimeZone.getTimeZone("Asia/Shanghai"));
+
         return simpleDateFormat.format(date);
 
     }
@@ -23,12 +26,16 @@ public class DateUtil {
 
         SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd");
 
+        simpleDateFormat.setTimeZone(TimeZone.getTimeZone("Asia/Shanghai"));
+
         return simpleDateFormat.format(date);
     }
 
     public static int getSubtractDate(String startDate,String endDate) throws ParseException {
 
         SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd");
+
+        simpleDateFormat.setTimeZone(TimeZone.getTimeZone("Asia/Shanghai"));
 
         Date start = simpleDateFormat.parse(startDate);
         Date end = simpleDateFormat.parse(endDate);

@@ -16,4 +16,77 @@
             #{editTime})
     </insert>
 
+    <select id="logList" resultType="com.qiheshengwu.stock.workbench.entity.LogStock">
+        select
+            id,
+            stockId,
+            item,
+            oldData,
+            newData,
+            editBy,
+            editTime
+        from
+            tbl_log_stock
+        <where>
+            <if test="parkName != '' and parkName != null">
+                editBy like "%" #{parkName} "%"
+            </if>
+            <if test="editTime != '' and editTime != null">
+                and editTime like "%" #{editTime} "%"
+            </if>
+        </where>
+        order by
+            editTime desc
+    </select>
+
+    <select id="totalByCondition" resultType="int">
+        select
+            count(*)
+        from
+        tbl_log_stock
+        <where>
+            <if test="parkName != '' and parkName != null">
+                editBy like "%" #{parkName} "%"
+            </if>
+            <if test="editTime != '' and editTime != null">
+                and editTime like "%" #{editTime} "%"
+            </if>
+        </where>
+    </select>
+
+    <select id="selectById" resultType="com.qiheshengwu.stock.workbench.entity.LogStock">
+        select
+            id,
+            stockId,
+            item,
+            oldData,
+            newData,
+            editBy,
+            editTime
+        from
+            tbl_log_stock
+        where
+            id=#{id}
+    </select>
+
+    <delete id="deleteById">
+        delete from
+            tbl_log_stock
+        where
+            id=#{id}
+
+    </delete>
+
+    <delete id="deleteBatch">
+        delete from
+        tbl_log_stock
+        <if test="array != null">
+            <where>
+                id in
+                <foreach collection="array" item="id" open="(" close=")" separator=",">
+                    #{id}
+                </foreach>
+            </where>
+        </if>
+    </delete>
 </mapper>

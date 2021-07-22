@@ -13,10 +13,12 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.servlet.ModelAndView;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 import java.text.ParseException;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -133,8 +135,11 @@ public class StockController {
     @ResponseBody
     public Map<String,Object> updateStock(Stock newStock, HttpServletRequest request) throws IllegalAccessException, DMLException, ParseException {
 
-        newStock.setDateCurrent(DateUtil.getSimpleDate());
-        newStock.setAccountAge(DateUtil.getSubtractDate(newStock.getDateTag(),newStock.getDateCurrent()));
+        Stock oldStock = stockService.getStockById(newStock.getId());
+        newStock.setDateCurrent(oldStock.getDateCurrent());
+        newStock.setAccountAge(oldStock.getAccountAge());
+
+
         // 形成修改日志
         LogStock logStock = logService.stockEditLog(newStock);
 
@@ -164,4 +169,67 @@ public class StockController {
 
         return resultMap;
     }
+
+    @RequestMapping(value = "/log.do")
+    @ResponseBody
+    public PageListVo<LogStock> logList(Integer pageNo,Integer pageSize,String parkName,String editTime) {
+
+        List<LogStock> logStockList = logService.logList(pageNo,pageSize,parkName,editTime);
+
+        Integer total = logService.totalByCondition(parkName,editTime);
+
+        PageListVo<LogStock> result = new PageListVo<>();
+        result.setDataList(logStockList);
+        result.setTotal(total);
+
+        return result;
+
+    }
+
+    @RequestMapping(value = "/detail.do")
+    @ResponseBody
+    public ModelAndView detail(String id) {
+
+        Map<String, Object> result = logService.getById(id);
+
+        ModelAndView mv = new ModelAndView();
+        mv.addObject("data",result);
+        mv.setViewName("/workbench/stock/detail.jsp");
+
+        return mv;
+
+    }
+
+    @RequestMapping(value = "/logDel.do")
+    @ResponseBody
+    public Map<String,Object> logDel(String id) throws DMLException {
+
+        logService.delById(id);
+
+        Map<String,Object> resultMap = new HashMap<>(2);
+        resultMap.put("success",true);
+        resultMap.put("message","删除日志成功！");
+
+        return resultMap;
+
+    }
+
+    /**
+     * 删除日志
+     * @param id 日志主键
+     * @return 删除执行结果和通知
+     */
+    @RequestMapping(value = "/logDelBatch.do")
+    @ResponseBody
+    public Map<String, Object> logDelBatch(String[] id) throws DMLException {
+
+        boolean result = logService.delBatch(id);
+
+        Map<String,Object> resultMap = new HashMap<>(2);
+        resultMap.put("success",result);
+        resultMap.put("message","删除成功，共" + id.length + "条数据！");
+
+        return resultMap;
+    }
+
 }

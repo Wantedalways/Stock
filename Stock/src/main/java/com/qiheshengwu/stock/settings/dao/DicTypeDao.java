@@ -14,4 +14,10 @@ public interface DicTypeDao {
      */
     List<DicType> selectAll();
 
+
+    /** 查询字段名
+     * @param item 字段code
+     * @return 返回字段名
+     */
+    String selectName(String item);
 }

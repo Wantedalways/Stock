@@ -1,6 +1,8 @@
 package com.qiheshengwu.stock.workbench.service.impl;
 
+import com.github.pagehelper.PageHelper;
 import com.qiheshengwu.stock.exception.DMLException;
+import com.qiheshengwu.stock.settings.dao.DicTypeDao;
 import com.qiheshengwu.stock.util.UUIDUtil;
 import com.qiheshengwu.stock.workbench.dao.LogDao;
 import com.qiheshengwu.stock.workbench.dao.StockDao;
@@ -12,6 +14,10 @@ import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
 import java.lang.reflect.Field;
+import java.util.Arrays;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 /**
  * @author Wantedalways
@@ -24,6 +30,9 @@ public class LogServiceImpl implements LogService {
 
     @Resource
     private LogDao logDao;
+
+    @Resource
+    private DicTypeDao dicTypeDao;
 
     @Override
     public LogStock stockEditLog(Stock newStock) throws IllegalAccessException {
@@ -71,9 +80,9 @@ public class LogServiceImpl implements LogService {
                 // 布尔标记为true，则返回对应的日志对象
                 flag = true;
 
-                item.append(oldFields[i].getName()).append(";");
-                oldData.append(oldField).append(";");
-                newDate.append(newField).append(";");
+                item.append(oldFields[i].getName()).append(" ;");
+                oldData.append(oldField).append(" ;");
+                newDate.append(newField).append(" ;");
 
             }
 
@@ -111,6 +120,74 @@ public class LogServiceImpl implements LogService {
         if (result != 1) {
 
             throw new DMLException("添加修改日志失败！");
+
+        }
+
+        return true;
+    }
+
+    @Override
+    public List<LogStock> logList(Integer pageNo, Integer pageSize, String parkName, String editTime) {
+
+        PageHelper.startPage(pageNo,pageSize);
+
+        return logDao.logList(parkName,editTime);
+    }
+
+    @Override
+    public Integer totalByCondition(String parkName, String editTime) {
+
+        return logDao.totalByCondition(parkName,editTime);
+
+    }
+
+    @Override
+    public Map<String,Object> getById(String id) {
+
+        LogStock logStock = logDao.selectById(id);
+        Stock stock = stockDao.selectById(logStock.getStockId());
+
+        String[] itemsTemp = logStock.getItem().split(";");
+
+        String[] namesTemp = new String[itemsTemp.length];
+        for (int i = 0;i < itemsTemp.length;i ++) {
+
+            namesTemp[i] = dicTypeDao.selectName(itemsTemp[i].trim());
+
+        }
+        String[] oldDataTemp = logStock.getOldData().split(";");
+        String[] newDataTemp = logStock.getNewData().split(";");
+
+        Map<String,Object> resultMap = new HashMap<>(5);
+        resultMap.put("logStock",logStock);
+        resultMap.put("stock",stock);
+        resultMap.put("names",Arrays.asList(namesTemp));
+        resultMap.put("oldData",Arrays.asList(oldDataTemp));
+        resultMap.put("newData",Arrays.asList(newDataTemp));
+
+        return resultMap;
+    }
+
+    @Override
+    public void delById(String id) throws DMLException {
+
+        int result = logDao.deleteById(id);
+
+        if (result != 1) {
+
+            throw new DMLException("删除日志失败！");
+
+        }
+    }
+
+    @Override
+    public boolean delBatch(String[] id) throws DMLException {
+
+        int result = logDao.deleteBatch(id);
+
+        if (result != id.length) {
+
+            throw new DMLException("删除失败！");
 
         }
 

@@ -45,46 +45,49 @@ function edit($checked) {
     // 保存修改按钮
     $("#edit-save").click(function () {
 
-        $.ajax({
+        if (test()) {
 
-            url : "workbench/stock/update.do",
-            data : {
+            $.ajax({
 
-                "id" : $.trim($("#hide-id").val()),
-                "parkId" : $.trim($("#edit-parkId").val()),
-                "freezerId" : $.trim($("#edit-freezerId").val()),
-                "pile" : $.trim($("#edit-pile").val()),
-                "dateTag" : $.trim($("#edit-dateTag").val()),
-                "shed" : $.trim($("#edit-shed").val()),
-                "bud" : $.trim($("#edit-bud").val()),
-                "type" : $.trim($("#edit-type").val()),
-                "grade" : $.trim($("#edit-grade").val()),
-                "amount" : $.trim($("#edit-amount").val()),
-                "nature" : $.trim($("#edit-nature").val()),
-                "peel" : $.trim($("#edit-peel").val()),
-                "test" : $.trim($("#edit-test").val()),
-                "remark" : $.trim($("#edit-remark").val())
+                url: "workbench/stock/update.do",
+                data: {
 
-            },
-            type : "post",
-            dataType : "json",
-            success : function (data) {
+                    "id": $.trim($("#hide-id").val()),
+                    "parkId": $.trim($("#edit-parkId").val()),
+                    "freezerId": $.trim($("#edit-freezerId").val()),
+                    "pile": $.trim($("#edit-pile").val()),
+                    "dateTag": $.trim($("#edit-dateTag").val()),
+                    "shed": $.trim($("#edit-shed").val()),
+                    "bud": $.trim($("#edit-bud").val()),
+                    "type": $.trim($("#edit-type").val()),
+                    "grade": $.trim($("#edit-grade").val()),
+                    "amount": $.trim($("#edit-amount").val()),
+                    "nature": $.trim($("#edit-nature").val()),
+                    "peel": $.trim($("#edit-peel").val()),
+                    "test": $.trim($("#edit-test").val()),
+                    "remark": $.trim($("#edit-remark").val())
 
-                if (data.success) {
+                },
+                type: "post",
+                dataType: "json",
+                success: function (data) {
 
-                    alert(data.message);
+                    if (data.success) {
 
-                    $("#editStockModal").modal("hide");
+                        alert(data.message);
 
-                    stockList(1,10);
+                        $("#editStockModal").modal("hide");
 
-                } else {
+                        stockList(1, 10);
 
-                    alert(data.message);
+                    } else {
 
+                        alert(data.message);
+
+                    }
                 }
-            }
-        })
+            })
+        }
     })
 }
 

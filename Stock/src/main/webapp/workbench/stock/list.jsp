@@ -106,10 +106,17 @@
             // 删除库存信息
             $("#delBtn").click(function () {
 
-                if (confirm("确认删除" + $(".select-single:checked").length + "条数据？")) {
+                if ($(".select-single:checked").length === 0) {
 
-                    del();
+                    alert("请选中数据！");
 
+                } else {
+
+                    if (confirm("确认删除" + $(".select-single:checked").length + "条数据？")) {
+
+                        del();
+
+                    }
                 }
             });
         })
@@ -199,6 +206,25 @@
                     })
                 }
             })
+        }
+        // 检验数据的方法
+        function test() {
+
+            var dateTag = $.trim($("#edit-dateTag").val());
+            var amount = $.trim($("#edit-amount").val());
+            var park = $.trim($("#edit-parkId").val());
+            var freezer = $.trim($("#edit-freezerId").val());
+
+            if (park !== "" && freezer !== "" && dateTag !== "" && amount !== "") {
+
+                return true;
+
+            } else {
+
+                alert("请完善必填项！");
+                return false;
+            }
+
         }
 
     </script>
@@ -356,7 +382,7 @@
 </div>
 <div style="position: relative; top: -20px; left: 0px; width: 100%; height: 100%;">
     <div style="width: 100%; position: absolute;top: 5px; left: 10px;">
-        <!--条件查询市场活动-->
+
         <div class="btn-toolbar" role="toolbar" style="height: 80px;">
             <form class="form-inline" role="form" style="position: relative;top: 8%; left: 5px;">
 

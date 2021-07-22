@@ -13,4 +13,12 @@
             tbl_dic_type
     </select>
 
+    <select id="selectName" resultType="String">
+        select
+            name
+        from
+            tbl_dic_type
+        where
+            code=#{item}
+    </select>
 </mapper>

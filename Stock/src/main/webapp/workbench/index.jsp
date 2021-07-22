@@ -273,7 +273,7 @@
             <li class="liClass"><a href="workbench/main/index.jsp" target="workAreaFrame"><span class="glyphicon glyphicon-home"></span> 用户首页</a></li>
             <li class="liClass"><a href="workbench/stock/add.jsp" target="workAreaFrame"><span class="glyphicon glyphicon-upload"></span> 库存录入</a></li>
             <li class="liClass"><a href="workbench/stock/list.jsp" target="workAreaFrame"><span class="glyphicon glyphicon-th-list"></span> 库存列表</a></li>
-            <li class="liClass"><a href="javascript:void(0);" target="workAreaFrame"><span class="glyphicon glyphicon-user"></span> 用户管理</a></li>
+            <li class="liClass"><a href="workbench/stock/log.jsp" target="workAreaFrame"><span class="glyphicon glyphicon-book"></span> 日志管理</a></li>
         </ul>
 
         <!-- 分割线 -->

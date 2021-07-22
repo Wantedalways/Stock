@@ -176,8 +176,6 @@
             nature=#{nature},
             peel=#{peel},
             test=#{test},
-            dateCurrent=#{dateCurrent},
-            accountAge=#{accountAge},
             remark=#{remark}
         where
             id=#{id}
